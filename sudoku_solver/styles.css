@@ -1,0 +1,36 @@
+body {
+  background-color: gray;
+}
+
+input {
+  width: 50px;
+  height: 50px;
+}
+
+input {border:0;outline:0;}
+input:focus {outline:none!important;}
+
+/* Table */
+
+.input-number {
+  font-size: xxx-large;
+  text-align: center !important;
+}
+
+table {
+  background-color: white;
+  border: 7px solid black;
+  margin: auto;
+}
+
+td {
+  border: 2px solid black;
+}
+
+.top-border-strong {
+  border-top: 7px solid black;
+}
+
+.left-border-strong {
+  border-left: 7px solid black;
+}
