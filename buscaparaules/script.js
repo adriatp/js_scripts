@@ -1,4 +1,4 @@
-const dictionary = new Map();
+let dictionary = null;
 let words = [];
 
 function create_dictionary(url) {
@@ -37,22 +37,65 @@ function download_object_as_json(obj) {
 	URL.revokeObjectURL(url);
 }
 
+function get_dictionary(url) {
+	fetch(url)
+  .then(res => {
+    if (!res.ok) throw new Error(`HTTP ${res.status}`);
+    return res.json();
+  })
+  .then(obj => {
+    dictionary = new Map(Object.entries(obj));
+    console.log('✅ Map loaded');
+  })
+  .catch(err => {
+    console.error('❌ Failed to load JSON:', err);
+  });
+}
+
+function clear_input() {
+	const div = document.querySelector('#found_words');
+	div.textContent = '';
+}
+
 function find_words(){
 	let input_letters = document.querySelector("#input_letters");
 	let sorted_letters = sort_word(input_letters.value);
-	const ul = document.querySelector('#found_words');
-	ul.textContent = '';
-	for (let found_word of dictionary.get(sorted_letters)) {
-		const li = document.createElement('li');
-		li.className = 'list-group-item';
-		li.textContent = found_word;
-		ul.appendChild(li);
+	const div = document.querySelector('#found_words');
+	div.textContent = '';
+	if (dictionary.has(sorted_letters)) {
+		const ul = document.createElement('ul');
+		ul.className = 'list-group';
+		div.appendChild(ul);
+		for (let found_word of dictionary.get(sorted_letters)) {
+			const li = document.createElement('li');
+			li.className = 'list-group-item';
+			li.textContent = found_word;
+			ul.appendChild(li);
+		}
+	} else {
+		const alert = document.createElement('div');
+		alert.className = 'alert alert-warning alert-dismissible fade show';
+		alert.role = 'alert';
+		alert.innerHTML = `
+			No s'ha trobat <strong>cap paraula</strong> formada per les lletres introduïdes.
+			<button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+		`;
+		div.appendChild(alert);
 	}
-	// alert(dictionary.get(sorted_letters));
 }
 
 function sort_word(word){
 	return word.split('').sort().join('');
 }
 
-create_dictionary("https://raw.githubusercontent.com/lorenbrichter/Words/refs/heads/master/Words/es.txt");
+// get_dictionary("https://raw.githubusercontent.com/adriatp/js_scripts/refs/heads/main/buscaparaules/es.json");
+
+dictionary = es_dict;
+
+const input = document.querySelector('#input_letters');
+input.addEventListener('input', (event) => {
+	clear_input();
+	if (event.target.value.length > 3) {
+		find_words();
+	}
+});
