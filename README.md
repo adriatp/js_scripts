@@ -1,5 +1,8 @@
 # todo
 
+- [ ] dicts
+  - [ ] standarize cat dict
+  - [ ] add en dict
 - [ ] reuse common files
   - [ ] bootstrap
   - [ ] dicts 
