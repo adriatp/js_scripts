@@ -1,56 +1,4 @@
-let dictionary = null;
-let words = [];
-
-function create_dictionary(url) {
-	fetch(url)
-    .then(response => response.text())
-    .then(dict => {
-			words = dict.split(/\r?\n/).map(p => p.trim()).filter(p => p.length);
-			for (let word of words) {
-				const sorted_word = sort_word(word);
-				if (!dictionary.has(sorted_word)){
-					dictionary.set(sorted_word, []);
-				}
-				dictionary.get(sorted_word).push(word);
-			}
-			console.log("ready");
-			// download_object_as_json(dictionary);
-    })
-    .catch(error => {
-        console.error("Error:", error);
-    });
-}
-
-function download_object_as_json(obj) {
-	const json = JSON.stringify(Object.fromEntries(obj));
-	console.log(obj)
-	console.log(json)
-	const blob = new Blob([json], { type: 'application/json' });
-	const url = URL.createObjectURL(blob);
-	const a = document.createElement('a');
-	a.href = url;
-	a.download = 'data.json';
-	a.style.display = 'none';
-	document.body.appendChild(a);
-	a.click();
-	document.body.removeChild(a);
-	URL.revokeObjectURL(url);
-}
-
-function get_dictionary(url) {
-	fetch(url)
-  .then(res => {
-    if (!res.ok) throw new Error(`HTTP ${res.status}`);
-    return res.json();
-  })
-  .then(obj => {
-    dictionary = new Map(Object.entries(obj));
-    console.log('✅ Map loaded');
-  })
-  .catch(err => {
-    console.error('❌ Failed to load JSON:', err);
-  });
-}
+let dictionary = dict_ca;
 
 function clear_input() {
 	const div = document.querySelector('#found_words');
@@ -87,10 +35,6 @@ function find_words(){
 function sort_word(word){
 	return word.split('').sort().join('');
 }
-
-// get_dictionary("https://raw.githubusercontent.com/adriatp/js_scripts/refs/heads/main/buscaparaules/es.json");
-
-dictionary = es_dict;
 
 const input = document.querySelector('#input_letters');
 input.addEventListener('input', (event) => {
