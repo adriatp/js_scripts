@@ -1,11 +1,11 @@
 # todo
 
 - [ ] dicts
-  - [ ] standarize cat dict
+  - [x] standarize cat dict
   - [ ] add en dict
 - [ ] reuse common files
-  - [ ] bootstrap
-  - [ ] dicts 
+  - [x] bootstrap
+  - [x] dicts 
   - [ ] common js scripts
 - [ ] add translation
 - [ ] add solve the wordle
