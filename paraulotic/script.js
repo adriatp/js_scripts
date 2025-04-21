@@ -74,7 +74,7 @@ function find_all_words() {
 }
 
 function sort_word(word){
-	return word.split('').sort().join('');
+	return word.toLowerCase().split('').sort().join('');
 }
 
 let dictionary = dict_ca;

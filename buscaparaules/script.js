@@ -1,4 +1,4 @@
-let dictionary = dict_ca;
+let dictionary = dict_es;
 
 function clear_input() {
 	const div = document.querySelector('#found_words');
@@ -33,7 +33,7 @@ function find_words(){
 }
 
 function sort_word(word){
-	return word.split('').sort().join('');
+	return word.toLowerCase().split('').sort().join('');
 }
 
 const input = document.querySelector('#input_letters');
