@@ -13477,4 +13477,4 @@ const dict_es_male_names=new Map(Object.entries({
   "aazz": [
     "Zaza"
   ]
-});
+}));
