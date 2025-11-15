@@ -1,4 +1,21 @@
-let dictionary = dict_es;
+function mergeNameMaps(...maps) {
+  const merged = new Map();
+
+  for (const map of maps) {
+    for (const [key, names] of map.entries()) {
+      if (merged.has(key)) {
+        const existing = merged.get(key);
+        const combined = [...new Set([...existing, ...names])];
+        merged.set(key, combined);
+      } else {
+        merged.set(key, [...names]);
+      }
+    }
+  }
+  return merged;
+}
+
+let dictionary = mergeNameMaps(dict_es, dict_es_female_names, dict_es_male_names);
 
 function clear_input() {
 	const div = document.querySelector('#found_words');
