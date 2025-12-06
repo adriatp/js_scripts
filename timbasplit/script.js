@@ -96,10 +96,18 @@ class PokerSettlement {
         const nameInput = row.querySelector('.player-name');
         const entryInput = row.querySelector('.player-entry');
         const finalInput = row.querySelector('.player-final');
+        const diffInput = row.querySelector('.player-diff');
 
         this.players[index].name = nameInput.value.trim();
         this.players[index].entry = parseFloat(entryInput.value) || 0;
         this.players[index].final = parseFloat(finalInput.value) || 0;
+
+        const diff = this.players[index].final - this.players[index].entry;
+        const diffFormatted = diff.toFixed(2);
+        const diffClass = diff >= 0 ? 'text-success positive' : 'text-danger negative';
+        
+        diffInput.value = diffFormatted + ' €';
+        diffInput.className = `form-control form-control-sm player-diff ${diffClass}`;
 
         this.saveToStorage();
         this.updateCalculations();
