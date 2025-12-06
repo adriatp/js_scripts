@@ -42,7 +42,7 @@ class PokerSettlement {
             if (e.target.closest('.remove-player')) {
                 const row = e.target.closest('tr');
                 const index = parseInt(row.dataset.index);
-                if (confirm(`Segur que vols eliminar el jugador "${this.players[index].name}"?`)) {
+                if (confirm(`Are you sure you want to delete player "${this.players[index].name}"?`)) {
                     this.removePlayer(index);
                 }
             }
@@ -60,7 +60,7 @@ class PokerSettlement {
     addPlayer(name = '', entry = 0, final = 0) {
         const player = {
             id: Date.now() + Math.random(),
-            name: name || `Jugador ${this.players.length + 1}`,
+            name: name || `Player ${this.players.length + 1}`,
             entry: parseFloat(entry) || 0,
             final: parseFloat(final) || 0
         };
@@ -82,7 +82,7 @@ class PokerSettlement {
 
     clearAllPlayers() {
         if (this.players.length === 0) return;
-        if (confirm(`Segur que vols eliminar tots els ${this.players.length} jugadors?`)) {
+        if (confirm(`Are you sure you want to delete all ${this.players.length} players?`)) {
             this.players = [];
             this.saveToStorage();
             this.renderTable();
@@ -120,12 +120,12 @@ class PokerSettlement {
 
             row.innerHTML = `
                 <td class="text-center player-index">${index + 1}</td>
-                <td><input type="text" class="form-control form-control-sm player-name" value="${player.name}" placeholder="Nom del jugador"></td>
+                <td><input type="text" class="form-control form-control-sm player-name" value="${player.name}" placeholder="Player name"></td>
                 <td><input type="number" step="0.01" class="form-control form-control-sm player-entry" value="${player.entry.toFixed(2)}" placeholder="0.00"></td>
                 <td><input type="number" step="0.01" class="form-control form-control-sm player-final" value="${player.final.toFixed(2)}" placeholder="0.00"></td>
                 <td><input type="text" class="form-control form-control-sm player-diff ${diffClass}" value="${diffFormatted} €" readonly></td>
                 <td class="text-center">
-                    <button class="btn btn-danger btn-sm remove-player" title="Eliminar jugador">
+                    <button class="btn btn-danger btn-sm remove-player" title="Delete player">
                         <svg xmlns="http://www.w3.org/2000/svg" width="12" height="12" fill="currentColor" class="bi bi-trash" viewBox="0 0 16 16">
                             <path d="M5.5 5.5A.5.5 0 0 1 6 6v6a.5.5 0 0 1-1 0V6a.5.5 0 0 1 .5-.5zm2.5 0a.5.5 0 0 1 .5.5v6a.5.5 0 0 1-1 0V6a.5.5 0 0 1 .5-.5zm3 .5a.5.5 0 0 0-1 0v6a.5.5 0 0 0 1 0V6z"/>
                             <path fill-rule="evenodd" d="M14.5 3a1 1 0 0 1-1 1H13v9a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V4h-.5a1 1 0 0 1-1-1V2a1 1 0 0 1 1-1H6a1 1 0 0 1 1-1h2a1 1 0 0 1 1 1h3.5a1 1 0 0 1 1 1v1zM4.118 4 4 4.059V13a1 1 0 0 0 1 1h6a1 1 0 0 0 1-1V4.059L11.882 4H4.118zM2.5 3V2h11v1h-11z"/>
@@ -140,7 +140,7 @@ class PokerSettlement {
             const emptyRow = document.createElement('tr');
             emptyRow.innerHTML = `
                 <td colspan="6" class="text-center text-muted py-4">
-                    No hi ha jugadors. Fes clic a "Afegir jugador" per començar.
+                     No players. Click "Add player" to start.
                 </td>
             `;
             tbody.appendChild(emptyRow);
@@ -171,11 +171,11 @@ class PokerSettlement {
 
         if (Math.abs(totalEntry - totalFinal) < 0.01) {
             validationDiv.className = 'alert alert-success';
-            validationResult.innerHTML = `<span class="badge badge-sum-ok">✓ Les sumes coincideixen</span>`;
+             validationResult.innerHTML = `<span class="badge badge-sum-ok">✓ Sums match</span>`;
         } else {
             validationDiv.className = 'alert alert-danger';
             const difference = (totalFinal - totalEntry).toFixed(2);
-            validationResult.innerHTML = `<span class="badge badge-sum-error">✗ Les sumes no coincideixen (diferència: ${difference} €)</span>`;
+             validationResult.innerHTML = `<span class="badge badge-sum-error">✗ Sums don't match (difference: ${difference} €)</span>`;
         }
         validationDiv.classList.remove('d-none');
     }
@@ -185,7 +185,7 @@ class PokerSettlement {
         transactionsList.innerHTML = '';
 
         if (this.players.length === 0) {
-            transactionsList.innerHTML = '<li class="list-group-item text-muted">No hi ha dades per calcular transferències.</li>';
+            transactionsList.innerHTML = '<li class="list-group-item text-muted">No data to calculate transfers.</li>';
             return;
         }
 
@@ -221,7 +221,7 @@ class PokerSettlement {
         }
 
         if (transactions.length === 0) {
-            transactionsList.innerHTML = '<li class="list-group-item text-muted">No calen transferències (tothom queda igual).</li>';
+            transactionsList.innerHTML = '<li class="list-group-item text-muted">No transfers needed (everyone stays the same).</li>';
             return;
         }
 
@@ -250,8 +250,8 @@ class PokerSettlement {
             }
         }
         if (this.players.length === 0) {
-            this.addPlayer('Jugador 1', 0, 0);
-            this.addPlayer('Jugador 2', 0, 0);
+            this.addPlayer('Player 1', 0, 0);
+            this.addPlayer('Player 2', 0, 0);
         }
     }
 }
