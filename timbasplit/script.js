@@ -13,7 +13,6 @@ class PokerSettlement {
 
     attachEvents() {
         document.getElementById('addPlayer').addEventListener('click', () => this.addPlayer());
-        document.getElementById('clearAllPlayers').addEventListener('click', () => this.clearAllPlayers());
         
         document.addEventListener('input', (e) => {
             if (e.target.classList.contains('player-entry') || 
@@ -119,7 +118,7 @@ class PokerSettlement {
             const diffClass = diff >= 0 ? 'text-success positive' : 'text-danger negative';
 
             row.innerHTML = `
-                <td class="text-center player-index">${index + 1}</td>
+
                 <td><input type="text" class="form-control form-control-sm player-name" value="${player.name}" placeholder="Player name"></td>
                 <td><input type="number" step="0.01" class="form-control form-control-sm player-entry" value="${player.entry.toFixed(2)}" placeholder="0.00"></td>
                 <td><input type="number" step="0.01" class="form-control form-control-sm player-final" value="${player.final.toFixed(2)}" placeholder="0.00"></td>
@@ -139,8 +138,8 @@ class PokerSettlement {
         if (this.players.length === 0) {
             const emptyRow = document.createElement('tr');
             emptyRow.innerHTML = `
-                <td colspan="6" class="text-center text-muted py-4">
-                     No players. Click "Add player" to start.
+                <td colspan="5" class="text-center text-muted py-4">
+                     No players
                 </td>
             `;
             tbody.appendChild(emptyRow);
@@ -156,7 +155,6 @@ class PokerSettlement {
         document.getElementById('totalFinal').textContent = totalFinal.toFixed(2) + ' €';
         document.getElementById('totalDiff').textContent = totalDiff.toFixed(2) + ' €';
 
-        this.updateValidation(totalEntry, totalFinal);
         this.calculateTransactions();
     }
 

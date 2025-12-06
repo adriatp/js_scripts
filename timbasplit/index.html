@@ -15,39 +15,28 @@
 		<section class="mb-5">
 			<div class="d-flex justify-content-between align-items-center mb-3">
 				<h2>Timba</h2>
-				<div>
-					<button id="addPlayer" class="btn btn-success btn-sm me-2">
-						<svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-plus-circle" viewBox="0 0 16 16">
-							<path d="M8 15A7 7 0 1 1 8 1a7 7 0 0 1 0 14zm0 1A8 8 0 1 0 8 0a8 8 0 0 0 0 16z"/>
-							<path d="M8 4a.5.5 0 0 1 .5.5v3h3a.5.5 0 0 1 0 1h-3v3a.5.5 0 0 1-1 0v-3h-3a.5.5 0 0 1 0-1h3v-3A.5.5 0 0 1 8 4z"/>
-						</svg>
-						Add player
-					</button>
-					<button id="clearAllPlayers" class="btn btn-outline-danger btn-sm">
-						<svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-trash" viewBox="0 0 16 16">
-							<path d="M5.5 5.5A.5.5 0 0 1 6 6v6a.5.5 0 0 1-1 0V6a.5.5 0 0 1 .5-.5zm2.5 0a.5.5 0 0 1 .5.5v6a.5.5 0 0 1-1 0V6a.5.5 0 0 1 .5-.5zm3 .5a.5.5 0 0 0-1 0v6a.5.5 0 0 0 1 0V6z"/>
-							<path fill-rule="evenodd" d="M14.5 3a1 1 0 0 1-1 1H13v9a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V4h-.5a1 1 0 0 1-1-1V2a1 1 0 0 1 1-1H6a1 1 0 0 1 1-1h2a1 1 0 0 1 1 1h3.5a1 1 0 0 1 1 1v1zM4.118 4 4 4.059V13a1 1 0 0 0 1 1h6a1 1 0 0 0 1-1V4.059L11.882 4H4.118zM2.5 3V2h11v1h-11z"/>
-						</svg>
-						Delete all
-					</button>
-				</div>
 			</div>
 
 			<div class="table-responsive">
 				<table class="table table-hover table-bordered table-editable">
 					<thead class="table-light">
 						<tr>
-							<th width="5%">#</th>
-							<th width="35%">Player</th>
+							<th width="40%">Player</th>
 							<th width="20%">Buy-in (€)</th>
 							<th width="20%">Final total (€)</th>
-							<th width="20%">Difference (€)</th>
-							<th width="5%"></th>
+							<th width="15%">Difference (€)</th>
+							<th width="5%" class="text-center">
+                <button id="addPlayer" class="btn btn-success btn-sm">
+                  <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-plus-circle" viewBox="0 0 16 16">
+                    <path d="M8 15A7 7 0 1 1 8 1a7 7 0 0 1 0 14zm0 1A8 8 0 1 0 8 0a8 8 0 0 0 0 16z"/>
+                    <path d="M8 4a.5.5 0 0 1 .5.5v3h3a.5.5 0 0 1 0 1h-3v3a.5.5 0 0 1-1 0v-3h-3a.5.5 0 0 1 0-1h3v-3A.5.5 0 0 1 8 4z"/>
+                  </svg>
+                </button>
+              </th>
 						</tr>
 					</thead>
 					<tbody id="playersTableBody">
 						<tr id="playerRowTemplate" style="display: none;">
-							<td class="text-center player-index">1</td>
 							<td><input type="text" class="form-control form-control-sm player-name" placeholder="Player name"></td>
 							<td><input type="number" step="0.01" class="form-control form-control-sm player-entry" placeholder="0.00"></td>
 							<td><input type="number" step="0.01" class="form-control form-control-sm player-final" placeholder="0.00"></td>
@@ -65,7 +54,7 @@
 					</tbody>
 					<tfoot>
 						<tr class="table-secondary">
-							<td colspan="2" class="text-end fw-bold">Totals:</td>
+							<td colspan="1" class="text-end fw-bold">Totals:</td>
 							<td class="fw-bold" id="totalEntry">0.00 €</td>
 							<td class="fw-bold" id="totalFinal">0.00 €</td>
 							<td class="fw-bold" id="totalDiff">0.00 €</td>
@@ -73,11 +62,6 @@
 						</tr>
 					</tfoot>
 				</table>
-			</div>
-
-			<div id="sumValidation" class="alert alert-warning d-none">
-				<strong>Sum verification:</strong> Sum of buy-ins (<span id="sumEntryDisplay">0</span> €) and sum of final totals (<span id="sumFinalDisplay">0</span> €) must match.
-				<span id="validationResult"></span>
 			</div>
 		</section>
 

@@ -8,6 +8,13 @@
     outline: none;
     background-color: #f8f9fa;
 }
+.table-editable input[type="number"] {
+    text-align: right;
+}
+.table-editable .player-diff {
+    text-align: right;
+    font-weight: 600;
+}
 .summary-card {
     border-left: 4px solid #0d6efd;
 }
@@ -52,6 +59,15 @@
     .table-editable input {
         padding: 0.5rem;
         font-size: 16px; /* Prevent zoom on iOS */
+        min-height: 2.5rem;
+        border: 1px solid #dee2e6;
+        background-color: white;
+        border-radius: 0.25rem;
+    }
+    .table-editable input:focus {
+        border-color: #86b7fe;
+        background-color: white;
+        box-shadow: 0 0 0 0.25rem rgba(13, 110, 253, 0.25);
     }
     .btn-sm {
         padding: 0.375rem 0.75rem;
@@ -59,8 +75,54 @@
     }
     .table th, .table td {
         padding: 0.5rem;
+        font-size: 14px;
     }
     h2 {
         font-size: 1.5rem;
+    }
+    /* Adjust column widths for mobile */
+    .table-editable th:nth-child(1),
+    .table-editable td:nth-child(1) {
+        width: 40% !important; /* Player column */
+        min-width: 90px;
+    }
+    .table-editable th:nth-child(2),
+    .table-editable td:nth-child(2) {
+        width: 20% !important; /* Buy-in column */
+        min-width: 70px;
+    }
+    .table-editable th:nth-child(3),
+    .table-editable td:nth-child(3) {
+        width: 20% !important; /* Final total column */
+        min-width: 70px;
+    }
+    .table-editable th:nth-child(4),
+    .table-editable td:nth-child(4) {
+        width: 15% !important; /* Difference column */
+        min-width: 70px;
+    }
+    .table-editable th:nth-child(5),
+    .table-editable td:nth-child(5) {
+        width: 5% !important; /* Action column */
+        min-width: 40px;
+    }
+    /* Prevent text wrapping in table cells */
+    .table-editable th, .table-editable td {
+        white-space: nowrap;
+    }
+    .table-editable td:nth-child(1) { /* Player column */
+        overflow: hidden;
+        text-overflow: ellipsis;
+        max-width: 120px;
+    }
+    .table-responsive {
+        overflow-x: auto;
+        -webkit-overflow-scrolling: touch;
+    }
+    .player-name, .player-entry, .player-final, .player-diff {
+        font-size: 14px;
+    }
+    .player-diff {
+        font-weight: 600;
     }
 }
