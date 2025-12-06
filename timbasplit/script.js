@@ -41,9 +41,7 @@ class PokerSettlement {
             if (e.target.closest('.remove-player')) {
                 const row = e.target.closest('tr');
                 const index = parseInt(row.dataset.index);
-                if (confirm(`Are you sure you want to delete player "${this.players[index].name}"?`)) {
-                    this.removePlayer(index);
-                }
+                this.removePlayer(index);
             }
         });
     }
