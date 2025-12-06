@@ -146,3 +146,13 @@ input[type="number"] {
         cursor: default;
     }
 }
+
+
+#copyTransactions {
+    transition: all 0.2s;
+}
+#copyTransactions:hover {
+    transform: translateY(-1px);
+    box-shadow: 0 4px 8px rgba(0, 123, 255, 0.2);
+}
+

@@ -13,6 +13,7 @@ class PokerSettlement {
 
     attachEvents() {
         document.getElementById('addPlayer').addEventListener('click', () => this.addPlayer());
+        document.getElementById('copyTransactions').addEventListener('click', () => this.copyTransactionsToClipboard());
         
         document.addEventListener('input', (e) => {
             if (e.target.classList.contains('player-entry') || 
@@ -194,36 +195,7 @@ class PokerSettlement {
             return;
         }
 
-        const playersWithDiff = this.players.map(p => ({
-            name: p.name,
-            diff: p.final - p.entry
-        }));
-
-        const creditors = playersWithDiff.filter(p => p.diff > 0).sort((a, b) => b.diff - a.diff);
-        const debtors = playersWithDiff.filter(p => p.diff < 0).sort((a, b) => a.diff - b.diff);
-
-        let transactions = [];
-        let i = 0, j = 0;
-
-        while (i < creditors.length && j < debtors.length) {
-            const creditor = creditors[i];
-            const debtor = debtors[j];
-            const amount = Math.min(creditor.diff, -debtor.diff);
-
-            if (amount > 0.01) {
-                transactions.push({
-                    from: debtor.name,
-                    to: creditor.name,
-                    amount: amount
-                });
-            }
-
-            creditor.diff -= amount;
-            debtor.diff += amount;
-
-            if (Math.abs(creditor.diff) < 0.01) i++;
-            if (Math.abs(debtor.diff) < 0.01) j++;
-        }
+        const transactions = this.getTransactions();
 
         if (transactions.length === 0) {
             transactionsList.innerHTML = '<li class="list-group-item text-muted">No bizums</li>';
@@ -238,6 +210,62 @@ class PokerSettlement {
                 <span class="badge bg-primary rounded-pill">${t.amount.toFixed(2)} €</span>
             `;
             transactionsList.appendChild(li);
+        });
+    }
+
+    getTransactions() {
+        const playersWithDiff = this.players.map(p => ({
+            name: p.name,
+            diff: p.final - p.entry
+        }));
+        const creditors = playersWithDiff.filter(p => p.diff > 0).sort((a, b) => b.diff - a.diff);
+        const debtors = playersWithDiff.filter(p => p.diff < 0).sort((a, b) => a.diff - b.diff);
+        let transactions = [];
+        let i = 0, j = 0;
+        while (i < creditors.length && j < debtors.length) {
+            const creditor = creditors[i];
+            const debtor = debtors[j];
+            const amount = Math.min(creditor.diff, -debtor.diff);
+            if (amount > 0.01) {
+                transactions.push({
+                    from: debtor.name,
+                    to: creditor.name,
+                    amount: amount
+                });
+            }
+            creditor.diff -= amount;
+            debtor.diff += amount;
+            if (Math.abs(creditor.diff) < 0.01) i++;
+            if (Math.abs(debtor.diff) < 0.01) j++;
+        }
+        return transactions;
+    }
+
+    generateTransactionsText() {
+        const transactions = this.getTransactions();
+        if (transactions.length === 0) return 'No hi ha transaccions';
+        return transactions.map(t => `${t.from} → ${t.to} (${t.amount.toFixed(2)}€)`).join('\n');
+    }
+
+    copyTransactionsToClipboard() {
+        const text = this.generateTransactionsText();
+        navigator.clipboard.writeText(text).then(() => {
+            const btn = document.getElementById('copyTransactions');
+            const copyIcon = document.getElementById('copyIcon');
+            const tickIcon = document.getElementById('tickIcon');
+            copyIcon.classList.add('d-none');
+            tickIcon.classList.remove('d-none');
+            btn.classList.remove('btn-outline-primary');
+            btn.classList.add('btn-success');
+            setTimeout(() => {
+                copyIcon.classList.remove('d-none');
+                tickIcon.classList.add('d-none');
+                btn.classList.remove('btn-success');
+                btn.classList.add('btn-outline-primary');
+            }, 2000);
+        }).catch(err => {
+            console.error('Failed to copy:', err);
+            alert('No s\'ha pogut copiar el text');
         });
     }
 
