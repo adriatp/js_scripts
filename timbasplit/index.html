@@ -12,16 +12,12 @@
 </head>
 <body>
 	<div class="container-fluid py-4">
-		<section class="mb-5">
-			<div class="d-flex justify-content-between align-items-center mb-3">
-				<h2>Timba</h2>
-			</div>
-
+		<section class="mb-2">
 			<div class="table-responsive">
 				<table class="table table-hover table-bordered table-editable">
 					<thead class="table-light">
 						<tr>
-							<th width="40%">Player</th>
+							<th width="40%">Name</th>
 							<th width="20%">Buy-in (€)</th>
 							<th width="20%">Final total (€)</th>
 							<th width="15%">Difference (€)</th>
@@ -40,7 +36,7 @@
 							<td><input type="text" class="form-control form-control-sm player-name" placeholder="Player name"></td>
 							<td><input type="number" step="0.01" class="form-control form-control-sm player-entry" placeholder="0.00"></td>
 							<td><input type="number" step="0.01" class="form-control form-control-sm player-final" placeholder="0.00"></td>
-							<td><input type="text" class="form-control form-control-sm player-diff" placeholder="0.00" readonly></td>
+							<td><input type="text" class="form-control form-control-sm player-diff" placeholder="0.00" readonly tabindex="-1"></td>
 							<td class="text-center">
 								<button class="btn btn-danger btn-sm remove-player" title="Delete player">
 									<svg xmlns="http://www.w3.org/2000/svg" width="12" height="12" fill="currentColor" class="bi bi-trash" viewBox="0 0 16 16">
@@ -66,7 +62,6 @@
 		</section>
 
 		<section class="mb-5">
-			<h2 class="mb-3">Bizums</h2>
 			<div id="transactionsContainer">
 				<ul id="transactionsList" class="list-group transaction-list"></ul>
 			</div>

@@ -51,6 +51,23 @@
     margin: 0 0.5rem;
 }
 
+/* Disable interaction for difference input */
+.player-diff {
+    pointer-events: none;
+    user-select: none;
+    cursor: default;
+}
+
+/* Hide number input spinners */
+input[type="number"]::-webkit-inner-spin-button,
+input[type="number"]::-webkit-outer-spin-button {
+    -webkit-appearance: none;
+    margin: 0;
+}
+input[type="number"] {
+    -moz-appearance: textfield;
+}
+
 @media (max-width: 768px) {
     .container-fluid {
         padding-left: 10px;
@@ -124,5 +141,8 @@
     }
     .player-diff {
         font-weight: 600;
+        pointer-events: none;
+        user-select: none;
+        cursor: default;
     }
 }
