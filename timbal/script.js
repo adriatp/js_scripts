@@ -188,10 +188,33 @@ class PokerSettlement {
 
     calculateTransactions() {
         const transactionsList = document.getElementById('transactionsList');
+        const copyButtonContainer = document.querySelector('#transactionsContainer .mt-3');
+        const copyButton = document.getElementById('copyTransactions');
+        const copyIcon = document.getElementById('copyIcon');
+        const tickIcon = document.getElementById('tickIcon');
+        
         transactionsList.innerHTML = '';
+        
+        if (copyButtonContainer) copyButtonContainer.classList.add('d-none');
+        if (copyButton) {
+            copyButton.classList.remove('btn-success');
+            copyButton.classList.add('btn-outline-primary');
+            if (copyIcon) copyIcon.classList.remove('d-none');
+            if (tickIcon) tickIcon.classList.add('d-none');
+        }
 
         if (this.players.length === 0) {
             transactionsList.innerHTML = '<li class="list-group-item text-muted">No bizums</li>';
+            return;
+        }
+
+        const totalEntry = this.players.reduce((sum, p) => sum + p.entry, 0);
+        const totalFinal = this.players.reduce((sum, p) => sum + p.final, 0);
+        const totalDiff = totalFinal - totalEntry;
+
+        if (Math.abs(totalDiff) >= 0.01) {
+            const errorMsg = totalDiff > 0 ? `falten ${Math.abs(totalDiff).toFixed(2)}` : `sobren ${Math.abs(totalDiff).toFixed(2)}`;
+            transactionsList.innerHTML = `<li class="list-group-item text-danger">${errorMsg}</li>`;
             return;
         }
 
@@ -211,6 +234,8 @@ class PokerSettlement {
             `;
             transactionsList.appendChild(li);
         });
+        
+        if (copyButtonContainer) copyButtonContainer.classList.remove('d-none');
     }
 
     getTransactions() {
@@ -242,6 +267,16 @@ class PokerSettlement {
     }
 
     generateTransactionsText() {
+        if (this.players.length === 0) return 'No hi ha transaccions';
+
+        const totalEntry = this.players.reduce((sum, p) => sum + p.entry, 0);
+        const totalFinal = this.players.reduce((sum, p) => sum + p.final, 0);
+        const totalDiff = totalFinal - totalEntry;
+
+        if (Math.abs(totalDiff) >= 0.01) {
+            return totalDiff > 0 ? `falten ${Math.abs(totalDiff).toFixed(2)}` : `sobren ${Math.abs(totalDiff).toFixed(2)}`;
+        }
+
         const transactions = this.getTransactions();
         if (transactions.length === 0) return 'No hi ha transaccions';
         return transactions.map(t => `${t.from} → ${t.to} (${t.amount.toFixed(2)}€)`).join('\n');
