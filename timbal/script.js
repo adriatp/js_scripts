@@ -34,6 +34,9 @@ class PokerSettlement {
         document.addEventListener('blur', (e) => {
             if (e.target.classList.contains('player-entry') || 
                 e.target.classList.contains('player-final')) {
+              console.log(e.target)
+              console.log(e.target.value)
+                this.evaluateInputExpression(e.target);
                 this.formatNumberInput(e.target);
                 this.updatePlayerFromRow(e.target.closest('tr'));
             }
@@ -129,7 +132,7 @@ class PokerSettlement {
 
                 <td><input type="text" class="form-control form-control-sm player-name" value="${player.name}" placeholder="Player name"></td>
                 <td><input type="number" step="0.01" class="form-control form-control-sm player-entry" value="${player.entry.toFixed(2)}" placeholder="0.00"></td>
-                <td><input type="number" step="0.01" class="form-control form-control-sm player-final" value="${player.final.toFixed(2)}" placeholder="0.00"></td>
+                <td><input type="text" class="form-control form-control-sm player-final" value="${player.final.toFixed(2)}" placeholder="0.00"></td>
                 <td><input type="text" class="form-control form-control-sm player-diff ${diffClass}" value="${diffFormatted} €" readonly tabindex="-1"></td>
                 <td class="text-center">
                     <button class="btn btn-danger btn-sm remove-player" title="Delete player" tabindex="-1">
@@ -184,6 +187,15 @@ class PokerSettlement {
              validationResult.innerHTML = `<span class="badge badge-sum-error">✗ Sums don't match (difference: ${difference} €)</span>`;
         }
         validationDiv.classList.remove('d-none');
+    }
+
+    evaluateInputExpression(input) {
+      try {
+          const result = eval(input.value);
+          if (!isNaN(result)) {
+              input.value = Number(result).toFixed(2);
+          }
+      } catch (e) { }
     }
 
     calculateTransactions() {
