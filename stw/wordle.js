@@ -1,0 +1,51 @@
+function possible_words(feedback_list, words_list) {
+  // feedback: [[ 'test', 'cicm'], [ 'aaaa', 'mmim'], ...]  
+  // words_list: [ 'cova', 'mapa', 'gent', 'boda']
+  let result = words_list;
+  for (const [attempt_word, feedback_word] of feedback_list) {
+    console.log(`attempt_word: ${attempt_word} | feedback_word: ${feedback_word}`)
+    if (attempt_word.length != feedback_word.length) {
+      throw new Error("attempt_word and feedback_word must have the same length")
+    }
+    for (const [word_index, feedback_letter] of [...feedback_word].entries()) {
+      attempt_letter = attempt_word[word_index]
+      console.log(`word_index: ${word_index} | feedback_letter: ${feedback_letter} | attempt_letter: ${attempt_letter}`)
+      if (feedback_letter == 'i' || feedback_letter == 'm') {
+        const occurrences= String([...attempt_word].reduce((n, l, i) => n + (l === attempt_letter && "cm".includes(feedback_word[i])), 0));
+        console.log(`occurrences: ${occurrences}`);
+        if (feedback_letter == 'i') {
+          // remove words from words_list that do not have attempt_letter exactly occurrences times
+          let regex = new RegExp(`^(?:[^${attempt_letter}]*${attempt_letter}){${occurrences}}[^${attempt_letter}]*$`, "i");
+          result = result.filter(p => regex.test(p))
+        }
+        else if (feedback_letter == 'm') {
+          // remove words from words_list that do not have attempt_letter at least occurrences times
+          let regex = new RegExp(`^(?:[^${attempt_letter}]*${attempt_letter}){${occurrences},}[^${attempt_letter}]*$`, "i");
+          result = result.filter(p => regex.test(p))
+        }
+        // remove words from words_list that have attempt_letter at position word_index
+        let regex = new RegExp(`^.{${word_index}}${attempt_letter}`, "i");
+        result = result.filter(p => !regex.test(p))
+      }
+      else if (feedback_letter == 'c') {
+        // remove words from words_list that do not have attempt_letter at position word_index
+        let regex = new RegExp(`^.{${word_index}}${attempt_letter}`, 'i');
+        result = result.filter(p => regex.test(p))
+      }
+      else {
+        throw new Error("wtf is this feedback")
+      }
+    }
+  }
+  // result sort by possibility
+  return result;
+}
+
+function suggested_words(feedback_list, possible_words, words_list) {
+  // feedback: [['test', 'cicm'], ['aaaa', 'mmim'], ...]  
+  // words_list: ['cova', 'mapa', 'gent', 'boda']
+  // todo
+  const result = possible_words;
+  // sw = sort by exclusion power
+  return result;
+}
