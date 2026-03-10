@@ -19,3 +19,4 @@
 - [ ] Mostrar toast o algo per l'estil
 - [ ] Suggested words sort by algorithm
 - [ ] Possible words sort by apparences in google
+- [ ] Fix import bootstrap (not cdn)
