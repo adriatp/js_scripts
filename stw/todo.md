@@ -4,17 +4,18 @@
   - [x] Insert letter in wordle square
   - [x] Remove letter from wordle sqaure
 - [ ] Manage feedback
-  - [ ] Posar listener al clicar cela crida a funcio que
-    - [ ] Pinta color (posa clase)
+  - [x] Posar listener al clicar cela crida a funcio que
+    - [x] Pinta color (posa clase)
     - [x] Cambia lletra de feeback
-- [ ] Solve
+- [x] Solve
   - [x] Obte feedback list
-  - [ ] Crida funcio possible_words
-  - [ ] Actualitza container de possible words
+  - [x] Crida funcio possible_words
+  - [x] Actualitza container de possible words
+- [ ] Fix interaccio amb vimium
+- [ ] Posar separacio entre input actual i passats
+- [ ] Permetre borrar linies
+- [ ] Guardar en cookies llenguatge per defecte
 - [ ] Animacio quan falla al entrar paraula
 - [ ] Mostrar toast o algo per l'estil
-- [ ] Suggested words
-- [ ] Rank words (sort)
-  - [ ] Sort possible words by apparences in google (?)
-  - [ ] Suggestes words sort by algorithm
-
+- [ ] Suggested words sort by algorithm
+- [ ] Possible words sort by apparences in google
