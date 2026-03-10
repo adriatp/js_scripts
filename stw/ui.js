@@ -189,3 +189,8 @@ function process_keydown(input) {
 window.addEventListener('keydown', function(event) {
   process_keydown(event.key);
 });
+
+const button_solve = document.querySelector('#solve_btn');
+button_solve.addEventListener('click', function(event) {
+  solve();
+});
