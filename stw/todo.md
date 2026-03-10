@@ -1,7 +1,8 @@
 # TODO
 
-- [ ] Manage input
-  - [ ] Listener de input text crida a funcio que posa lletra i a la cela i
+- [x] Manage input
+  - [x] Insert letter in wordle square
+  - [x] Remove letter from wordle sqaure
 - [ ] Manage feedback
   - [ ] Posar listener al clicar cela crida a funcio que
     - [ ] Pinta color (posa clase)

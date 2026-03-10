@@ -1,7 +1,8 @@
 function feedback_list() {
-  // [['test', 'cicm'], ['aaaa', 'mmim'], ...]
-  // get from ui
-  return [];
+  let input_words =  document.querySelectorAll('.input_word');
+  let input_feedback = document.querySelectorAll('.input_feedback');
+  let combined = Array.from(input_words).slice(0,-1).map((el, i) => [el.value, input_feedback[i].value]);
+  return combined;
 }
 
 function dictionary_words() {
@@ -74,9 +75,37 @@ function add_wordle_rows(container_id, row_count, cell_count) {
     }
 }
 
+function active_wordle_row() {
+  const awr = document.querySelectorAll('.wordle_row');
+  return awr[awr.length - 1];
+}
+
 function active_input_word() {
-  const inputs = document.querySelectorAll('.input_word')
-  return inputs[inputs.length - 1];
+  return active_wordle_row().querySelector('.input_word');
+}
+
+function active_input_word_size() {
+  return active_wordle_row().querySelector('.input_word').value.length;
+}
+
+function cells_active_wordle_row() {
+   return active_wordle_row().querySelectorAll('.wordle_square');
+}
+
+function last_wordle_square() {
+  const active_input_size = active_input_word_size();
+  if (active_input_size == 0) {
+    return null;
+  }
+  return cells_active_wordle_row()[active_input_size - 1];
+}
+
+function next_wordle_square() {
+  const active_input_size = active_input_word_size();
+  if (active_input_size >= window.wordle_cells) {
+    return null;
+  }
+  return cells_active_wordle_row()[active_input_size];
 }
 
 function active_word() {
@@ -88,7 +117,7 @@ function process_enter() {
     console.log("error: word is too short")
     return;
   }
-  if (dictionary_words().includes(active_word().toLowerCase())) {
+  if (!dictionary_words().includes(active_word().toLowerCase())) {
     console.log("error: word is not in the active dictionary")
     return;
   }
@@ -96,12 +125,17 @@ function process_enter() {
 }
 
 function process_backspace() {
-  active_input_word().value = active_word().slice(0, -1);
+  if (active_word().length > 0) {
+    last_wordle_square().innerHTML = '';
+    active_input_word().value = active_word().slice(0, -1);
+  }
 }
 
 function process_letter(letter) {
   if (active_word().length < window.wordle_cells) {
-    active_input_word().value = active_input_word().value + letter;
+    next_wordle_square().innerHTML = letter;
+    let aiw = active_input_word();
+    aiw.value = aiw.value + letter;
   }
 }
 
@@ -109,7 +143,6 @@ function process_keydown(input) {
   let letter = input.toUpperCase();
   const is_letter = /^[A-ZÇÑ]$/i.test(input);
 
-  console.log(input)
   if (input === "Dead") {
     window.dead_key_active = true;
   }
@@ -121,7 +154,6 @@ function process_keydown(input) {
       process_backspace();
     }
     else if (is_letter) {
-      console.log(letter)
       if (window.dead_key_active) {
         if (letter === "C") {
           letter = 'Ç';
