@@ -47,15 +47,19 @@ function add_wordle_rows(container_id, row_count, cell_count) {
         squares_wrapper.className = 'd-flex gap-2 mb-2 w-100 justify-content-center';
 
         for (let j = 0; j < cell_count; j++) {
-            const square = document.createElement('div');
-            square.className = 'wordle_square border rounded d-flex align-items-center justify-content-center fw_bold fs_2 text_uppercase';
-            
-            square.style.flex = '1 1 0';
-            square.style.maxWidth = '60px';
-            square.style.aspectRatio = '1 / 1';
-            square.style.background = 'rgba(255, 255, 255, 0.05)';
-            
-            squares_wrapper.appendChild(square);
+          const square = document.createElement('div');
+          square.className = 'feedback-i wordle_square border rounded d-flex align-items-center justify-content-center fw_bold fs_2 text_uppercase';
+          
+          square.style.flex = '1 1 0';
+          square.style.maxWidth = '60px';
+          square.style.aspectRatio = '1 / 1';
+          square.dataset.index = j;
+
+          squares_wrapper.appendChild(square);
+
+          square.addEventListener('click', function(event) {
+            process_feedback(event.target);
+          });
         }
 
         const input_word = document.createElement('input');
@@ -110,6 +114,20 @@ function next_wordle_square() {
 
 function active_word() {
   return active_input_word().value;
+}
+
+function process_feedback(wordle_square) {
+  const square_index = Number(wordle_square.dataset.index);
+  const wordle_row = wordle_square.closest('.wordle_row')
+  let feedback_input = wordle_row.querySelector('.input_feedback');
+  const next_state = { 'i':'m', 'm':'c', 'c':'i' }
+  // update feedback_input
+  const value_array = feedback_input.value.split('');
+  value_array[square_index] = next_state[value_array[square_index]];
+  feedback_input.value = value_array.join('');
+  // next class to color
+  let feedback_class = Array.from(wordle_square.classList).find(c => /^feedback-[cmi]$/.test(c));
+  if (feedback_class) wordle_square.classList.replace(feedback_class, `feedback-${next_state[feedback_class.split('-')[1]]}`);  
 }
 
 function process_enter() {
@@ -171,4 +189,3 @@ function process_keydown(input) {
 window.addEventListener('keydown', function(event) {
   process_keydown(event.key);
 });
-
