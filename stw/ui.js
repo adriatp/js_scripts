@@ -218,10 +218,11 @@ function process_keydown(input) {
   }
 }
 
+//  listener process keydown
 window.addEventListener('keydown', function(event) {
   process_keydown(event.key);
 });
-
+//  listener solve
 const button_solve = document.querySelector('#solve_btn');
 button_solve.addEventListener('click', function(event) {
   solve();

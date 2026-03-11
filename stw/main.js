@@ -1,9 +1,5 @@
 function set_listeners() {
   // change dictionary
-  document.querySelector(`#select_dict`).addEventListener('change', (event) => {
-    dictionary_words();
-    load()
-  });
   // keyboard
 }
 
@@ -29,5 +25,15 @@ function reset() {
   add_wordle_rows('input_container', window.wordle_rows, window.wordle_cells);
   load();
 }
+
+const language_select = document.querySelector('#select_dict');
+const selected_dictionary = localStorage.getItem('selected_dictionary');
+if (selected_dictionary != null) {
+  language_select.value = selected_dictionary;
+}
+language_select.addEventListener('change', function(event) {
+  localStorage.setItem('selected_dictionary', event.target.value);
+  load();
+});
 
 reset();

@@ -17,8 +17,8 @@
 - [ ] Permetre borrar linies
 - [ ] Animacio quan falla al entrar paraula
   - [ ] Mostrar toast o algo per l'estil
-- [ ] Suggested words sort by algorithm
-- [ ] Possible words sort by apparences in google
 - [ ] Fix import bootstrap (not cdn)
 - [ ] Obrir teclat en android quan prems tecla de input
+- [ ] Suggested words sort by algorithm
+- [ ] Possible words sort by apparences in google
 
