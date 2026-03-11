@@ -37,45 +37,36 @@ function populate_word_containers(possible_words, suggested_words) {
 }
 
 function add_wordle_rows(container_id, row_count, cell_count) {
-    const container = document.getElementById(container_id);
-
-    for (let i = 0; i < row_count; i++) {
-        const row_container = document.createElement('div');
-        row_container.className = 'wordle_row w-100';
-
-        const squares_wrapper = document.createElement('div');
-        squares_wrapper.className = 'd-flex gap-2 mb-2 w-100 justify-content-center';
-
-        for (let j = 0; j < cell_count; j++) {
-          const square = document.createElement('div');
-          square.className = 'feedback-cell wordle_square border rounded d-flex align-items-center justify-content-center fw_bold fs_2 text_uppercase';
-          square.style.flex = '1 1 0';
-          square.style.maxWidth = '60px';
-          square.style.aspectRatio = '1 / 1';
-          square.dataset.index = j;
-
-          squares_wrapper.appendChild(square);
-
-          square.addEventListener('click', function(event) {
-            process_feedback(event.target);
-          });
-        }
-
-        const input_word = document.createElement('input');
-        input_word.type = 'hidden';
-        input_word.className = 'input_word';
-
-        const input_feedback = document.createElement('input');
-        input_feedback.type = 'hidden';
-        input_feedback.className = 'input_feedback';
-        input_feedback.value = "i".repeat(cell_count);
-
-        row_container.appendChild(squares_wrapper);
-        row_container.appendChild(input_word);
-        row_container.appendChild(input_feedback);
-        
-        container.appendChild(row_container);
+  const container = document.getElementById(container_id);
+  for (let i = 0; i < row_count; i++) {
+    const row_container = document.createElement('div');
+    row_container.className = 'wordle_row w-100';
+    const squares_wrapper = document.createElement('div');
+    squares_wrapper.className = 'd-flex gap-2 mb-2 w-100 justify-content-center';
+    for (let j = 0; j < cell_count; j++) {
+      const square = document.createElement('button');
+      square.className = 'feedback-cell wordle_square border rounded d-flex align-items-center justify-content-center fw_bold fs_2 text_uppercase';
+      square.style.flex = '1 1 0';
+      square.style.maxWidth = '60px';
+      square.style.aspectRatio = '1 / 1';
+      square.dataset.index = j;
+      squares_wrapper.appendChild(square);
+      square.addEventListener('click', function(event) {
+        process_feedback(event.target);
+      });
     }
+    const input_word = document.createElement('input');
+    input_word.type = 'hidden';
+    input_word.className = 'input_word';
+    const input_feedback = document.createElement('input');
+    input_feedback.type = 'hidden';
+    input_feedback.className = 'input_feedback';
+    input_feedback.value = "i".repeat(cell_count);
+    row_container.appendChild(squares_wrapper);
+    row_container.appendChild(input_word);
+    row_container.appendChild(input_feedback);
+    container.appendChild(row_container);
+  }
 }
 
 function active_wordle_row() {

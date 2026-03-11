@@ -12,12 +12,13 @@
   - [x] Obte feedback list
   - [x] Crida funcio possible_words
   - [x] Actualitza container de possible words
-- [ ] Obrir teclat en android quan prems tecla de input
+- [x] Fix interaccio amb vimium
 - [ ] Guardar en cookies llenguatge per defecte
-- [ ] Fix interaccio amb vimium
 - [ ] Permetre borrar linies
 - [ ] Animacio quan falla al entrar paraula
   - [ ] Mostrar toast o algo per l'estil
 - [ ] Suggested words sort by algorithm
 - [ ] Possible words sort by apparences in google
 - [ ] Fix import bootstrap (not cdn)
+- [ ] Obrir teclat en android quan prems tecla de input
+
