@@ -48,8 +48,7 @@ function add_wordle_rows(container_id, row_count, cell_count) {
 
         for (let j = 0; j < cell_count; j++) {
           const square = document.createElement('div');
-          square.className = 'feedback-i wordle_square border rounded d-flex align-items-center justify-content-center fw_bold fs_2 text_uppercase';
-          
+          square.className = 'feedback-cell wordle_square border rounded d-flex align-items-center justify-content-center fw_bold fs_2 text_uppercase';
           square.style.flex = '1 1 0';
           square.style.maxWidth = '60px';
           square.style.aspectRatio = '1 / 1';
@@ -88,8 +87,12 @@ function active_input_word() {
   return active_wordle_row().querySelector('.input_word');
 }
 
+function active_input_feedback() {
+  return active_wordle_row().querySelector('.input_feedback');
+}
+
 function active_input_word_size() {
-  return active_wordle_row().querySelector('.input_word').value.length;
+  return active_input_word().value.length;
 }
 
 function cells_active_wordle_row() {
@@ -117,8 +120,11 @@ function active_word() {
 }
 
 function process_feedback(wordle_square) {
-  const square_index = Number(wordle_square.dataset.index);
   const wordle_row = wordle_square.closest('.wordle_row')
+  if (wordle_row == active_wordle_row()) {
+    return
+  }
+  const square_index = Number(wordle_square.dataset.index);
   let feedback_input = wordle_row.querySelector('.input_feedback');
   const next_state = { 'i':'m', 'm':'c', 'c':'i' }
   // update feedback_input
@@ -130,6 +136,41 @@ function process_feedback(wordle_square) {
   if (feedback_class) wordle_square.classList.replace(feedback_class, `feedback-${next_state[feedback_class.split('-')[1]]}`);  
 }
 
+function stored_inputs() {
+  let input_words = [...document.querySelectorAll('.input_word')].slice(0, -1).map(e => e.value);
+  let input_feedback = [...document.querySelectorAll('.input_feedback')].slice(0, -1).map(e => e.value);
+  return [input_words, input_feedback];
+}
+
+function process_row() {
+  const active_word = active_input_word();
+  const active_wordle_cells = cells_active_wordle_row();
+  const active_feedback = active_input_feedback();
+  const [stored_words, stored_feedback] = stored_inputs();
+  for (let i=0; i<window.wordle_cells; i++) {
+    const active_cell = active_wordle_cells[i];
+    const letter = active_word.value[i];
+    let correct_letter = false;
+    for (let j=0; j<stored_words.length; j++) {
+      if (stored_words[j][i] === letter) {
+        if (stored_feedback[j][i] === 'c') {
+          correct_letter = true;
+        }
+        break;
+      }
+    }
+    if (correct_letter) {
+      active_feedback.value = active_feedback.value.slice(0,i) + 'c' + active_feedback.value.slice(i+1);
+      active_cell.classList.add('feedback-c');
+    }
+    else {
+      active_cell.classList.add('feedback-i');
+    }
+    active_cell.classList.remove('feedback-cell');
+  }
+  add_wordle_rows('input_container', window.wordle_rows, window.wordle_cells);
+}
+
 function process_enter() {
   if (active_word().length < window.wordle_cells) {
     console.log("error: word is too short")
@@ -139,7 +180,7 @@ function process_enter() {
     console.log("error: word is not in the active dictionary")
     return;
   }
-  add_wordle_rows('input_container', window.wordle_rows, window.wordle_cells);
+  process_row();
 }
 
 function process_backspace() {
