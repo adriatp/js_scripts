@@ -3,7 +3,8 @@
 - [x] Manage input
   - [x] Insert letter in wordle square
   - [x] Remove letter from wordle sqaure
-- [ ] Manage feedback
+- [x] Posar separacio entre input actual i passats
+- [x] Manage feedback
   - [x] Posar listener al clicar cela crida a funcio que
     - [x] Pinta color (posa clase)
     - [x] Cambia lletra de feeback
@@ -11,12 +12,12 @@
   - [x] Obte feedback list
   - [x] Crida funcio possible_words
   - [x] Actualitza container de possible words
-- [ ] Fix interaccio amb vimium
-- [ ] Posar separacio entre input actual i passats
-- [ ] Permetre borrar linies
+- [ ] Obrir teclat en android quan prems tecla de input
 - [ ] Guardar en cookies llenguatge per defecte
+- [ ] Fix interaccio amb vimium
+- [ ] Permetre borrar linies
 - [ ] Animacio quan falla al entrar paraula
-- [ ] Mostrar toast o algo per l'estil
+  - [ ] Mostrar toast o algo per l'estil
 - [ ] Suggested words sort by algorithm
 - [ ] Possible words sort by apparences in google
 - [ ] Fix import bootstrap (not cdn)
