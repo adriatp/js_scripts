@@ -164,11 +164,13 @@ function process_row() {
 
 function process_enter() {
   if (active_word().length < window.wordle_cells) {
-    console.log("error: word is too short")
+    trigger_feedback_shake();
+    show_error_message("Not enough letters");
     return;
   }
   if (!dictionary_words().includes(active_word().toLowerCase())) {
-    console.log("error: word is not in the active dictionary")
+    trigger_feedback_shake();
+    show_error_message("Not in word list")
     return;
   }
   process_row();

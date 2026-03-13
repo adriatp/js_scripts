@@ -15,8 +15,8 @@
 - [x] Fix interaccio amb vimium
 - [x] Guardar en cookies llenguatge per defecte
 - [x] Permetre borrar linies
-- [ ] Animacio quan falla al entrar paraula
-  - [ ] Mostrar toast o algo per l'estil
+- [x] Animacio quan falla al entrar paraula
+  - [x] Mostrar toast o algo per l'estil
 - [ ] Fix import bootstrap (not cdn)
 - [ ] Obrir teclat en android quan prems tecla de input
 - [ ] Suggested words sort by algorithm
