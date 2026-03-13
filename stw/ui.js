@@ -175,9 +175,18 @@ function process_enter() {
 }
 
 function process_backspace() {
+  const wordle_rows = document.querySelectorAll('.wordle_row');
   if (active_word().length > 0) {
     last_wordle_square().innerHTML = '';
     active_input_word().value = active_word().slice(0, -1);
+  }
+  else if (wordle_rows.length > 1) {
+    active_wordle_row().remove();
+    cells_active_wordle_row().forEach(wordle_square => {
+      let feedback_class = Array.from(wordle_square.classList).find(c => /^feedback-[cmi]$/.test(c));
+      wordle_square.classList.replace(feedback_class, 'feedback-cell');  
+      active_input_feedback().value = "i".repeat(window.wordle_cells);
+    })
   }
 }
 

@@ -13,8 +13,8 @@
   - [x] Crida funcio possible_words
   - [x] Actualitza container de possible words
 - [x] Fix interaccio amb vimium
-- [ ] Guardar en cookies llenguatge per defecte
-- [ ] Permetre borrar linies
+- [x] Guardar en cookies llenguatge per defecte
+- [x] Permetre borrar linies
 - [ ] Animacio quan falla al entrar paraula
   - [ ] Mostrar toast o algo per l'estil
 - [ ] Fix import bootstrap (not cdn)
