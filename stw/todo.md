@@ -18,6 +18,7 @@
 - [x] Animacio quan falla al entrar paraula
   - [x] Mostrar toast o algo per l'estil
 - [ ] Fix import bootstrap (not cdn)
+- [ ] Copy word from possible/suggested words to input if clicked
 - [ ] Obrir teclat en android quan prems tecla de input
 - [ ] Suggested words sort by algorithm
 - [ ] Possible words sort by apparences in google
