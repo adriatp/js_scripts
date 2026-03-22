@@ -11,6 +11,21 @@ function dictionary_words() {
   return window.active_dict;
 }
 
+function clear_active_row() {
+  active_input_word().value = '';
+  active_input_feedback().value = 'i'.repeat(window.wordle_cells)
+  active_wordle_row().querySelectorAll('.wordle_square').forEach((s) => {
+    s.innerHTML = '';
+  });
+}
+
+function write_word(word) {
+  clear_active_row();
+  [...word].forEach((l) => {
+    process_letter(l.toUpperCase());
+  });
+}
+
 function populate_word_container(words, id_prefix, color, max) {
   const container = document.querySelector(`#${id_prefix}_words_container`);
   container.innerHTML = "";
@@ -135,9 +150,20 @@ function stored_inputs() {
 
 function process_row() {
   const active_word = active_input_word();
+  const active_word_value = active_word.value;
   const active_wordle_cells = cells_active_wordle_row();
   const active_feedback = active_input_feedback();
   const [stored_words, stored_feedback] = stored_inputs();
+  if (active_word_value.length < window.wordle_cells) {
+    trigger_feedback_shake();
+    show_error_message("Not enough letters");
+    return;
+  }
+  if (!dictionary_words().includes(active_word_value.toLowerCase())) {
+    trigger_feedback_shake();
+    show_error_message("Not in word list")
+    return;
+  }
   for (let i=0; i<window.wordle_cells; i++) {
     const active_cell = active_wordle_cells[i];
     const letter = active_word.value[i];
@@ -163,17 +189,7 @@ function process_row() {
 }
 
 function process_enter() {
-  if (active_word().length < window.wordle_cells) {
-    trigger_feedback_shake();
-    show_error_message("Not enough letters");
-    return;
-  }
-  if (!dictionary_words().includes(active_word().toLowerCase())) {
-    trigger_feedback_shake();
-    show_error_message("Not in word list")
-    return;
-  }
-  process_row();
+  solve()
 }
 
 function process_backspace() {
@@ -197,6 +213,9 @@ function process_letter(letter) {
     next_wordle_square().innerHTML = letter;
     let aiw = active_input_word();
     aiw.value = aiw.value + letter;
+  }
+  if (active_word().length == window.wordle_cells) {
+    process_row();
   }
 }
 
