@@ -31,12 +31,13 @@ function populate_word_container(words, id_prefix, color, max) {
   container.innerHTML = "";
   for (let i=0; i<words.length; i++) {
     const span = document.createElement("span");
-    span.className = `badge text-bg-${color} m-1`;
     if (i<max) {
+      span.className = `word-badge badge text-bg-${color} m-1`;
       span.textContent = words[i];
       container.appendChild(span);
     }
     else {
+      span.className = `badge text-bg-${color} m-1`;
       span.textContent = '...';
       container.appendChild(span);
       break;
@@ -256,4 +257,18 @@ window.addEventListener('keydown', function(event) {
 const button_solve = document.querySelector('#solve_btn');
 button_solve.addEventListener('click', function(event) {
   solve();
+});
+const pw_container = document.querySelector('#possible_words_container')
+pw_container.addEventListener('click', function(event) {
+  const badge = event.target.closest('.word-badge');
+  if (!badge) return;
+  const word = badge.innerHTML;
+  write_word(word);
+});
+const sw_container = document.querySelector('#suggested_words_container')
+sw_container.addEventListener('click', function(event) {
+  const badge = event.target.closest('.word-badge');
+  if (!badge) return;
+  const word = badge.innerHTML;
+  write_word(word);
 });
