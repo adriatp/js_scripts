@@ -17,9 +17,10 @@
 - [x] Permetre borrar linies
 - [x] Animacio quan falla al entrar paraula
   - [x] Mostrar toast o algo per l'estil
-- [ ] Copy word from possible/suggested words to input if clicked
-- [ ] Posar paraula al escriure'n 5
-- [ ] Intro executa el solve
+- [x] Copy word from possible/suggested words to input if clicked
+- [x] Posar paraula al escriure'n 5
+- [x] Intro executa el solve
+- [ ] Suggested words
 - [ ] Fix import bootstrap (not cdn)
 - [ ] Obrir teclat en android quan prems tecla de input
 - [ ] Suggested words sort by algorithm
