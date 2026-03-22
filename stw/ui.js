@@ -29,6 +29,7 @@ function write_word(word) {
 function populate_word_container(words, id_prefix, color, max) {
   const container = document.querySelector(`#${id_prefix}_words_container`);
   container.innerHTML = "";
+  window.active_words = words;
   for (let i=0; i<words.length; i++) {
     const span = document.createElement("span");
     if (i<max) {
