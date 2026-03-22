@@ -32,12 +32,12 @@ function populate_word_container(words, id_prefix, color, max) {
   for (let i=0; i<words.length; i++) {
     const span = document.createElement("span");
     if (i<max) {
-      span.className = `word-badge badge text-bg-${color} m-1`;
+      span.className = `word-badge cursor-pointer user-select-none badge text-bg-${color} m-1`;
       span.textContent = words[i];
       container.appendChild(span);
     }
     else {
-      span.className = `badge text-bg-${color} m-1`;
+      span.className = `badge text-decoration-none text-bg-${color} m-1`;
       span.textContent = '...';
       container.appendChild(span);
       break;
