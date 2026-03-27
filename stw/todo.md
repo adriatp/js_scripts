@@ -25,4 +25,3 @@
 - [ ] Obrir teclat en android quan prems tecla de input
 - [ ] Suggested words sort by algorithm
 - [ ] Possible words sort by apparences in google
-

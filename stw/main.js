@@ -31,7 +31,7 @@ const selected_dictionary = localStorage.getItem('selected_dictionary');
 if (selected_dictionary != null) {
   language_select.value = selected_dictionary;
 }
-language_select.addEventListener('change', function(event) {
+language_select.addEventListener('change', function (event) {
   localStorage.setItem('selected_dictionary', event.target.value);
   load();
 });
