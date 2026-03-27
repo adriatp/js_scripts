@@ -247,6 +247,13 @@ function process_keydown(input) {
   }
 }
 
+function clear() {
+  let wordle_rows = document.querySelectorAll('.wordle_row');
+  Array.from(wordle_rows)
+    .slice(0, -1)
+    .forEach((e) => e.remove());
+}
+
 //  listener process keydown
 window.addEventListener('keydown', function (event) {
   process_keydown(event.key);
@@ -256,6 +263,12 @@ const button_solve = document.querySelector('#solve_btn');
 button_solve.addEventListener('click', function (event) {
   solve();
 });
+// listener clear
+const button_clear = document.querySelector('#clear_btn');
+button_clear.addEventListener('click', function (event) {
+  clear();
+});
+//
 const pw_container = document.querySelector('#possible_words_container');
 pw_container.addEventListener('click', function (event) {
   const badge = event.target.closest('.word-badge');
