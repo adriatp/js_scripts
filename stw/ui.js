@@ -252,6 +252,9 @@ function clear() {
   Array.from(wordle_rows)
     .slice(0, -1)
     .forEach((e) => e.remove());
+  const dw = dictionary_words();
+  const sw = suggested_words([], dw, dw);
+  populate_word_containers(dw, sw);
 }
 
 //  listener process keydown

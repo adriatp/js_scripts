@@ -20,7 +20,7 @@
 - [x] Copy word from possible/suggested words to input if clicked
 - [x] Posar paraula al escriure'n 5
 - [x] Intro executa el solve
-- [ ] Clear button
+- [x] Clear button
 - [ ] Suggested words
 - [ ] Fix import bootstrap (not cdn)
 - [ ] Obrir teclat en android quan prems tecla de input
