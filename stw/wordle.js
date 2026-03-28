@@ -40,11 +40,24 @@ function possible_words(feedback_list, words_list) {
 
 function suggested_words(feedback_list, possible_words, words_list) {
   // feedback: [['test', 'cicm'], ['aaaa', 'mmim'], ...]
+  // possible_words: ['airam', adira, asdfa, ...]
   // words_list: ['cova', 'mapa', 'gent', 'boda']
-  // todo
-  const result = possible_words;
-  // sw = sort by exclusion power
-  return result;
+  const tried_words = feedback_list.map((x) => x[0]);
+  const seen_letters = new Set(tried_words.join('').split(''));
+
+  function score(word) {
+    const unique_letters = new Set(word.split(''));
+    let count = 0;
+    for (const l of unique_letters) {
+      if (!seen_letters.has(l)) count++;
+    }
+    return count;
+  }
+
+  return words_list
+    .map((w) => ({ word: w, score: score(w) }))
+    .sort((a, b) => b.score - a.score)
+    .map((x) => x.word);
 }
 
 function feedback_result(word_1, word_2) {
